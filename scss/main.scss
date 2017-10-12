@@ -1,0 +1,153 @@
+$blue: #5E86BA;
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Verdana, sans-serif;
+  background: #EBE9E9;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.weather {
+  display: flex;
+  width: 100%;
+  max-width: 70vw;
+  background: #ffffff;
+  box-shadow: 0 10px 13px 0 fade-out(#000000, .5);
+
+  &__now {
+    box-sizing: border-box;
+    flex: 0 0 40%;
+    padding: 30px;
+    color: #ffffff;
+    background: $blue;
+  }
+  &__nowTitle {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+  }
+  &__nowType {
+    & svg {
+      display: block;
+      width: 100%;
+      max-width: 100px;
+      margin: 0 auto;
+      fill: #ffffff;
+    }
+  }
+  &__nowRest {
+    display: flex;
+    justify-content: space-between;
+    margin: 30px auto;
+    padding: 0;
+    list-style: none;
+    & li {
+      flex: 0 0 20px;
+      height: 20px;
+      background: #ffffff;
+    }
+  }
+  &__nowDeg {
+    margin: .5em 0 0;
+    font-size: 60px;
+    font-style: italic;
+    text-align: center;
+  }
+  &__nowName {
+    margin: 5px 0 0;
+    font-size: 16px;
+    font-weight: 700;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+  }
+
+  &__full {
+    position: relative;
+    flex: 1 1 auto;
+  }
+  &__fullCity {
+    box-sizing: border-box;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 0 15px;
+
+    & input {
+      box-sizing: border-box;
+      display: block;
+      width: 100%;
+      padding: 10px 15px;
+      font: 16px Verdana, sans-serif;
+      color: #000000;
+      border: none;
+      box-shadow: 0 1px 0 0px #bbbbbb;
+      outline: none;
+      transition: box-shadow .2s,
+      padding .2s;
+      &:focus {
+        padding-top: 15px;
+        padding-bottom: 15px;
+        box-shadow: 0 3px 0 0px #bbbbbb;
+        & ~ button {
+          opacity: 1;
+          pointer-events: auto;
+          & svg {
+            fill: #000000;
+          }
+        }
+      }
+      &::-webkit-input-placeholder {
+        font-size: inherit;
+        color: #bbbbbb;
+      }
+      &::-moz-placeholder {
+        font-size: inherit;
+        color: #bbbbbb;
+      }
+      &:-ms-input-placeholder {
+        font-size: inherit;
+        color: #bbbbbb;
+      }
+      &:-moz-placeholder {
+        font-size: inherit;
+        color: #bbbbbb;
+      }
+    }
+    & button {
+      position: absolute;
+      top: 0;
+      right: 15px;
+      height: 100%;
+      padding: 0;
+      background: none;
+      border: none;
+      cursor: pointer;
+      outline: none;
+      opacity: 0;
+      transition: opacity .1s;
+      pointer-events: none;
+      & svg {
+        display: block;
+        width: 20px;
+        height: 20px;
+        fill: #bbbbbb;
+      }
+    }
+  }
+}

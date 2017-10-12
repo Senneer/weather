@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Weather</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./css/main.css">
+</head>
+<body>
+  <div class="wrapper">
+    <div class="weather">
+      <div class="weather__now">
+        <p class="weather__nowTitle">Now</p>
+        <div class="weather__nowType" data-svg="sun"></div>
+        <ul class="weather__nowRest">
+          <li class="weather__nowRestItem"></li>
+          <li class="weather__nowRestItem"></li>
+          <li class="weather__nowRestItem"></li>
+        </ul>
+        <p class="weather__nowDeg">18C</p>
+        <p class="weather__nowName">Sunny</p>
+      </div>
+      <div class="weather__full">
+        <form action="" class="weather__fullCity">
+          <input type="text" placeholder="Type in city">
+          <button data-svg="search">Search</button>
+        </form>
+        <ul class="weather__fullHours"></ul>
+      </div>
+    </div>
+  </div>
+  <script src="./js/svg.js"></script>
+  <script src="./js/main.js"></script>
+</body>
+</html>
