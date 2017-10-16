@@ -8,8 +8,9 @@ body {
 body {
   margin: 0;
   padding: 0;
-  font-family: Verdana, sans-serif;
+  font-family: 'Roboto Condensed', sans-serif;
   background: #EBE9E9;
+  background: linear-gradient(to right, #AA81DF, #D0909E);
 }
 
 .wrapper {
@@ -21,17 +22,36 @@ body {
 
 .weather {
   display: flex;
-  width: 100%;
-  max-width: 70vw;
-  background: #ffffff;
+  width: 70vw;
+  max-width: 850px;
+  min-height: 40vh;
+  background: fade-out(#ffffff, .8);
   box-shadow: 0 10px 13px 0 fade-out(#000000, .5);
 
   &__now {
+    position: relative;
     box-sizing: border-box;
     flex: 0 0 40%;
     padding: 30px;
-    color: #ffffff;
-    background: $blue;
+    color: #333333;
+    background: fade-out(#ffffff, .8);
+    &._hide {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      & *:not(.loader) {
+        display: none;
+      }
+    }
+    & .loader {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      &._hide {
+        display: none;
+      }
+    }
   }
   &__nowTitle {
     margin: 0;
@@ -46,7 +66,7 @@ body {
       width: 100%;
       max-width: 100px;
       margin: 0 auto;
-      fill: #ffffff;
+      fill: #333333;
     }
   }
   &__nowRest {
@@ -64,8 +84,8 @@ body {
   &__nowDeg {
     margin: .5em 0 0;
     font-size: 60px;
-    font-style: italic;
     text-align: center;
+    letter-spacing: -5px;
   }
   &__nowName {
     margin: 5px 0 0;
@@ -73,7 +93,7 @@ body {
     font-weight: 700;
     text-align: center;
     text-transform: uppercase;
-    letter-spacing: .05em;
+    letter-spacing: .1em;
   }
 
   &__full {
@@ -94,16 +114,17 @@ body {
       width: 100%;
       padding: 10px 15px;
       font: 16px Verdana, sans-serif;
-      color: #000000;
+      color: #333333;
+      background: none;
       border: none;
-      box-shadow: 0 1px 0 0px #bbbbbb;
+      box-shadow: 0 1px 0 0px #666666;
       outline: none;
       transition: box-shadow .2s,
       padding .2s;
       &:focus {
         padding-top: 15px;
         padding-bottom: 15px;
-        box-shadow: 0 3px 0 0px #bbbbbb;
+        box-shadow: 0 2px 0 0px #666666;
         & ~ button {
           opacity: 1;
           pointer-events: auto;
@@ -114,19 +135,19 @@ body {
       }
       &::-webkit-input-placeholder {
         font-size: inherit;
-        color: #bbbbbb;
+        color: #666666;
       }
       &::-moz-placeholder {
         font-size: inherit;
-        color: #bbbbbb;
+        color: #666666;
       }
       &:-ms-input-placeholder {
         font-size: inherit;
-        color: #bbbbbb;
+        color: #666666;
       }
       &:-moz-placeholder {
         font-size: inherit;
-        color: #bbbbbb;
+        color: #666666;
       }
     }
     & button {
@@ -139,15 +160,82 @@ body {
       border: none;
       cursor: pointer;
       outline: none;
-      opacity: 0;
       transition: opacity .1s;
-      pointer-events: none;
+      &:hover {
+        & svg {
+          fill: #333333;
+        }
+      }
+      &:active {
+        & svg {
+          fill: #000000;
+        }
+      }
       & svg {
         display: block;
         width: 20px;
         height: 20px;
-        fill: #bbbbbb;
+        fill: #666666;
       }
     }
+  }
+}
+
+.loader,
+.loader:before,
+.loader:after {
+  background: #ffffff;
+  -webkit-animation: load1 1s infinite ease-in-out;
+  animation: load1 1s infinite ease-in-out;
+  width: 1em;
+  height: 4em;
+}
+.loader {
+  color: #ffffff;
+  text-indent: -9999em;
+  position: relative;
+  font-size: 11px;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-animation-delay: -0.16s;
+  animation-delay: -0.16s;
+}
+.loader:before,
+.loader:after {
+  position: absolute;
+  top: 0;
+  content: '';
+}
+.loader:before {
+  left: -1.5em;
+  -webkit-animation-delay: -0.32s;
+  animation-delay: -0.32s;
+}
+.loader:after {
+  left: 1.5em;
+}
+@-webkit-keyframes load1 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 0;
+    height: 4em;
+  }
+  40% {
+    box-shadow: 0 -2em;
+    height: 5em;
+  }
+}
+@keyframes load1 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 0;
+    height: 4em;
+  }
+  40% {
+    box-shadow: 0 -2em;
+    height: 5em;
   }
 }

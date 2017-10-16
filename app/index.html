@@ -4,12 +4,14 @@
   <title>Weather</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
   <link rel="stylesheet" href="./css/main.css">
+  <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
 </head>
 <body>
   <div class="wrapper">
     <div class="weather">
-      <div class="weather__now">
+      <div class="weather__now _hide">
         <p class="weather__nowTitle">Now</p>
         <div class="weather__nowType" data-svg="sun"></div>
         <ul class="weather__nowRest">
@@ -19,16 +21,20 @@
         </ul>
         <p class="weather__nowDeg">18C</p>
         <p class="weather__nowName">Sunny</p>
+        <div class="weather__nowLoader loader">Loading...</div>
       </div>
       <div class="weather__full">
         <form action="" class="weather__fullCity">
-          <input type="text" placeholder="Type in city">
-          <button data-svg="search">Search</button>
+          <input type="text" name="city" class="weather__fullCityInp" placeholder="Type in city">
+          <button class="weather__fullCityBtn" data-svg="search">Search</button>
         </form>
         <ul class="weather__fullHours"></ul>
       </div>
     </div>
   </div>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBnXIAPWhViItduCbRw_TcfxKaTeOgvXak&libraries=places,geometry"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="http://code.jquery.com/ui/1.9.1/jquery-ui.min.js"></script>
   <script src="./js/svg.js"></script>
   <script src="./js/main.js"></script>
 </body>
