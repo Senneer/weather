@@ -39,26 +39,24 @@ body {
   color: #333333;
   background: rgba(255, 255, 255, .2);
 }
-.weather__now._hide {
+.weather__nowLoader {
+  position: absolute;
+  top: 0;
+  left: 0;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-pack: center;
   justify-content: center;
   -ms-flex-align: center;
   align-items: center;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, .5);
+  transition: opacity .3s;
 }
-.weather__now._hide *:not(.loader) {
-  display: none;
-}
-.weather__now .loader {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -ms-transform: translate(-50%, -50%);
-      transform: translate(-50%, -50%);
-}
-.weather__now .loader._hide {
-  display: none;
+.weather__nowLoader._hide {
+  opacity: 0;
+  pointer-events: none;
 }
 .weather__nowTitle {
   margin: 0;
@@ -67,12 +65,9 @@ body {
   text-transform: uppercase;
   letter-spacing: .05em;
 }
-.weather__nowType svg {
+.weather__nowType {
   display: block;
-  width: 100%;
-  max-width: 100px;
-  margin: 0 auto;
-  fill: #333333;
+  max-height: 150px;
 }
 .weather__nowRest {
   display: -ms-flexbox;
@@ -83,11 +78,33 @@ body {
   padding: 0;
   list-style: none;
 }
-.weather__nowRest li {
-  -ms-flex: 0 0 20px;
-      flex: 0 0 20px;
-  height: 20px;
-  background: #ffffff;
+.weather__nowRestItem {
+  position: relative;
+  -ms-flex: 1 1 33%;
+      flex: 1 1 33%;
+}
+.weather__nowRestItem:not(:last-of-type) {
+  margin-right: 20px;
+}
+.weather__nowRestItem:not(:last-of-type)::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: -11px;
+  -ms-transform: translateY(-50%);
+      transform: translateY(-50%);
+  width: 1px;
+  height: 30px;
+  background: currentColor;
+  border-right: 1px solid #cccccc;
+}
+.weather__nowRestItemTitle {
+  margin: 0 0 5px;
+  font-size: 16px;
+}
+.weather__nowRestItemInfo {
+  margin: 0;
+  font-size: 18px;
 }
 .weather__nowDeg {
   margin: .5em 0 0;
@@ -183,29 +200,28 @@ body {
 }
 
 .loader,
-.loader:before,
-.loader:after {
-  background: #ffffff;
-  animation: load1 1s infinite ease-in-out;
+.loader::before,
+.loader::after {
   width: 1em;
   height: 4em;
+  background: currentColor;
+  animation: load 1s infinite ease-in-out;
 }
 
 .loader {
-  color: #ffffff;
-  text-indent: -9999em;
   position: relative;
+  transform: translateZ(0);
   font-size: 11px;
-  -ms-transform: translateZ(0);
-      transform: translateZ(0);
+  text-indent: -9999em;
+  color: #333333;
   animation-delay: -.16s;
 }
 
-.loader:before,
-.loader:after {
+.loader::before,
+.loader::after {
+  content: '';
   position: absolute;
   top: 0;
-  content: '';
 }
 
 .loader:before {
@@ -217,7 +233,7 @@ body {
   left: 1.5em;
 }
 
-@keyframes load1 {
+@keyframes load {
   0%,
   80%,
   100% {

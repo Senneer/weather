@@ -13,29 +13,35 @@
     <div class="weather">
       <div class="weather__now _hide">
         <p class="weather__nowTitle">Now</p>
-        <div class="weather__nowType" data-svg="sun"></div>
+        <canvas class="weather__nowType weatherType"></canvas>
         <ul class="weather__nowRest">
-          <li class="weather__nowRestItem"></li>
-          <li class="weather__nowRestItem"></li>
-          <li class="weather__nowRestItem"></li>
+          <li class="weather__nowRestItem">
+            <p class="weather__nowRestItemTitle">Pressure:</p>
+            <p class="weather__nowRestItemInfo _pressure"></p>
+          </li>
+          <li class="weather__nowRestItem">
+            <p class="weather__nowRestItemTitle">Dew point:</p>
+            <p class="weather__nowRestItemInfo _dewPoint"></p>
+          </li>
+          <li class="weather__nowRestItem">
+            <p class="weather__nowRestItemTitle">Wind:</p>
+            <p class="weather__nowRestItemInfo _wind"></p>
+          </li>
         </ul>
         <p class="weather__nowDeg">18C</p>
         <p class="weather__nowName">Sunny</p>
-        <div class="weather__nowLoader loader">Loading...</div>
+        <div class="weather__nowLoader"><div class="loader"></div></div>
       </div>
       <div class="weather__full">
         <form action="" class="weather__fullCity">
           <input type="text" name="city" class="weather__fullCityInp" placeholder="Type in city">
-          <button class="weather__fullCityBtn" data-svg="search">Search</button>
         </form>
         <ul class="weather__fullHours"></ul>
       </div>
     </div>
   </div>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBnXIAPWhViItduCbRw_TcfxKaTeOgvXak&libraries=places,geometry"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="http://code.jquery.com/ui/1.9.1/jquery-ui.min.js"></script>
-  <script src="./js/svg.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/skycons/1396634940/skycons.min.js"></script>
   <script src="./js/main.js"></script>
 </body>
 </html>
