@@ -21,6 +21,7 @@ body {
 }
 
 .weather {
+  position: relative;
   display: flex;
   width: 70vw;
   max-width: 850px;
@@ -29,7 +30,6 @@ body {
   box-shadow: 0 10px 13px 0 fade-out(#000000, .5);
 
   &__now {
-    position: relative;
     box-sizing: border-box;
     flex: 0 0 40%;
     padding: 30px;
@@ -61,7 +61,10 @@ body {
   }
   &__nowType {
     display: block;
+    width: 100%;
+    max-width: 300px;
     max-height: 150px;
+    margin: 0 auto;
   }
   &__nowRest {
     display: flex;
@@ -165,34 +168,36 @@ body {
         color: #666666;
       }
     }
-    & button {
-      position: absolute;
-      top: 0;
-      right: 15px;
-      height: 100%;
-      padding: 0;
-      background: none;
-      border: none;
-      cursor: pointer;
-      outline: none;
-      transition: opacity .1s;
-      &:hover {
-        & svg {
-          fill: #333333;
-        }
-      }
-      &:active {
-        & svg {
-          fill: #000000;
-        }
-      }
-      & svg {
-        display: block;
-        width: 20px;
-        height: 20px;
-        fill: #666666;
-      }
+  }
+
+  &__fullHours {
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-gap: 3px;
+    height: 100%;
+    margin: 0;
+    padding: 60px 15px 15px;
+    list-style: none;
+  }
+  &__fullHoursItem {
+    box-sizing: border-box;
+    padding: 2px;
+    background: fade-out(#ffffff, .7);
+  }
+  &__fullHoursItemText {
+    margin: 0;
+    font-size: 12px;
+    text-align: center;
+    &:not(:last-of-type) {
+      margin: 0 0 5px;
     }
+    &._time {
+      text-align: right;
+    }
+  }
+  &__fullHoursItemType {
+    width: 100%;
   }
 }
 
@@ -235,5 +240,40 @@ body {
   40% {
     box-shadow: 0 -2em;
     height: 5em;
+  }
+}
+
+@media screen and (max-width: 1220px) {
+  html,
+  body {
+    height: auto;
+  }
+  .wrapper {
+    padding: 50px 15px;
+  }
+  .weather {
+    width: 100%;
+    max-width: 500px;
+    flex-direction: column;
+    &__full {
+      position: static;
+    }
+    &__fullCity {
+      top: auto;
+      bottom: 100%;
+      background: #ffffff;
+      border: 1px solid #666666;
+      & input {
+        box-shadow: none;
+        &:focus {
+          padding-top: 10px;
+          padding-bottom: 10px;
+          box-shadow: none;
+        }
+      }
+    }
+    &__fullHours {
+      padding-top: 15px;
+    }
   }
 }

@@ -22,6 +22,7 @@ body {
 }
 
 .weather {
+  position: relative;
   display: -ms-flexbox;
   display: flex;
   width: 70vw;
@@ -31,7 +32,6 @@ body {
   box-shadow: 0 10px 13px 0 rgba(0, 0, 0, .5);
 }
 .weather__now {
-  position: relative;
   box-sizing: border-box;
   -ms-flex: 0 0 40%;
       flex: 0 0 40%;
@@ -67,7 +67,10 @@ body {
 }
 .weather__nowType {
   display: block;
+  width: 100%;
+  max-width: 300px;
   max-height: 150px;
+  margin: 0 auto;
 }
 .weather__nowRest {
   display: -ms-flexbox;
@@ -174,29 +177,36 @@ body {
   font-size: inherit;
   color: #666666;
 }
-.weather__fullCity button {
-  position: absolute;
-  top: 0;
-  right: 15px;
+.weather__fullHours {
+  box-sizing: border-box;
+  display: -ms-grid;
+  display:     grid;
+  -ms-grid-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-gap: 3px;
   height: 100%;
-  padding: 0;
-  background: none;
-  border: none;
-  cursor: pointer;
-  outline: none;
-  transition: opacity .1s;
+  margin: 0;
+  padding: 60px 15px 15px;
+  list-style: none;
 }
-.weather__fullCity button:hover svg {
-  fill: #333333;
+.weather__fullHoursItem {
+  box-sizing: border-box;
+  padding: 2px;
+  background: rgba(255, 255, 255, .3);
 }
-.weather__fullCity button:active svg {
-  fill: #000000;
+.weather__fullHoursItemText {
+  margin: 0;
+  font-size: 12px;
+  text-align: center;
 }
-.weather__fullCity button svg {
-  display: block;
-  width: 20px;
-  height: 20px;
-  fill: #666666;
+.weather__fullHoursItemText:not(:last-of-type) {
+  margin: 0 0 5px;
+}
+.weather__fullHoursItemText._time {
+  text-align: right;
+}
+.weather__fullHoursItemType {
+  width: 100%;
 }
 
 .loader,
@@ -243,5 +253,41 @@ body {
   40% {
     box-shadow: 0 -2em;
     height: 5em;
+  }
+}
+
+@media screen and (max-width: 1220px) {
+  html,
+  body {
+    height: auto;
+  }
+  .wrapper {
+    padding: 50px 15px;
+  }
+  .weather {
+    width: 100%;
+    max-width: 500px;
+    -ms-flex-direction: column;
+        flex-direction: column;
+  }
+  .weather__full {
+    position: static;
+  }
+  .weather__fullCity {
+    top: auto;
+    bottom: 100%;
+    background: #ffffff;
+    border: 1px solid #666666;
+  }
+  .weather__fullCity input {
+    box-shadow: none;
+  }
+  .weather__fullCity input:focus {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    box-shadow: none;
+  }
+  .weather__fullHours {
+    padding-top: 15px;
   }
 }

@@ -10,8 +10,29 @@ const selectors = {
     wind: document.getElementsByClassName('weather__nowRestItemInfo _wind')[0],
     dewPoint: document.getElementsByClassName('weather__nowRestItemInfo _dewPoint')[0],
     pressure: document.getElementsByClassName('weather__nowRestItemInfo _pressure')[0]
-  }
+  },
+  hourlyList: document.getElementsByClassName('weather__fullHours')[0]
 };
+
+Handlebars.registerHelper('convert', function(options) {
+  return Math.round(options.fn(this));
+});
+Handlebars.registerHelper('convertTime', function(options) {
+  let date = new Date(options.fn(this) * 1000);
+  let hours = date.getHours();
+  let minutes = date.getMinutes();
+  if (hours < 10) {
+    hours = '0' + hours.toString();
+  }
+  if (minutes < 10) {
+    minutes = '0' + minutes.toString();
+  }
+  let time = hours + ':' + minutes;
+  return time;
+});
+
+const source = document.getElementById('hourCard').innerHTML;
+const template = Handlebars.compile(source);
 
 function skycons() {
   let icons = new Skycons({
@@ -33,7 +54,7 @@ function skycons() {
 
   for (let i = list.length; i--;) {
     var weatherType = list[i],
-    elements = document.getElementsByClassName( weatherType );
+    elements = document.getElementsByClassName(weatherType);
     elements = Array.prototype.slice.call(elements);
 
     elements.forEach(function(el) {
@@ -56,6 +77,12 @@ document.addEventListener('DOMContentLoaded', () => {
     pressure.innerHTML = Math.round(response.currently.pressure) + ' hPa';
   }
 
+  function fillHourly(response) {
+    response.data.forEach(function(el) {
+      selectors.hourlyList.insertAdjacentHTML('beforeend', template(el));
+    });
+  }
+
   let latitude;
   let longitude;
   let weather;
@@ -69,6 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
         weather = JSON.parse(xhr.responseText);
         fillCurrent(weather, selectors.now.deg, selectors.now.summary, selectors.now.icon,
          selectors.now.wind, selectors.now.dewPoint, selectors.now.pressure);
+        fillHourly(weather.hourly);
         skycons();
       } else {
         //!!!
@@ -76,16 +104,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  function fToC(fahrenheit) {
-    return (fahrenheit - 32) * 5 / 9;
-  }
-
   function weatherReport(latitude, longitude) {
-    var apiKey       = 'e881e391e95d9497880c0fc57e5078f0',
+    let apiKey       = 'e881e391e95d9497880c0fc57e5078f0',
     url          = 'https://api.darksky.net/forecast/',
     lati         = latitude,
     longi        = longitude,
-    api_call     = url + apiKey + "/" + lati + "," + longi + "?exclude=minutly,daily&units=ca";
+    date = Math.round(new Date().getTime()/1000),
+    api_call     = url + apiKey + "/" + lati + "," + longi + "," + date + "?exclude=minutly,daily&units=ca";
 
     xhr.open('GET', api_call, true);
     xhr.send();
@@ -107,6 +132,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     latitude = locale.geometry.location.lat();
     longitude = locale.geometry.location.lng();
+
+    selectors.hourlyList.innerHTML = '';
 
     weatherReport(latitude, longitude);
   });
