@@ -80,8 +80,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
   var xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function () {
+    selectors.loader.classList.remove('_hide');
     if (xhr.readyState === XMLHttpRequest.DONE) {
-      selectors.loader.classList.remove('_hide');
       if (xhr.status === 200) {
         selectors.loader.classList.add('_hide');
         weather = JSON.parse(xhr.responseText);
@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', function () {
         fillHourly(weather.hourly);
         skycons();
       } else {
-        //!!!
+        console.log('error: ' + (this.status ? this.statusText : 'Bad request'));
       }
     }
   };
@@ -110,6 +110,8 @@ document.addEventListener('DOMContentLoaded', function () {
       longitude = location.coords.longitude;
 
       weatherReport(latitude, longitude);
+    }, function () {
+      selectors.inp.focus();
     });
   }
 

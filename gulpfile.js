@@ -1,13 +1,14 @@
 'use strict';
 
 const gulp = require('gulp'),
-  postcss = require('gulp-postcss'),
-  autoprefixer = require('autoprefixer'),
-  connect = require('gulp-connect'),
-  csscomb = require('gulp-csscomb'),
-  sass = require('gulp-sass'),
-  flexbugs = require('postcss-flexbugs-fixes'),
-  babel = require('gulp-babel');
+postcss = require('gulp-postcss'),
+autoprefixer = require('autoprefixer'),
+connect = require('gulp-connect'),
+csscomb = require('gulp-csscomb'),
+sass = require('gulp-sass'),
+flexbugs = require('postcss-flexbugs-fixes'),
+babel = require('gulp-babel'),
+util = require('gulp-util');
 
 //connect
 gulp.task('connect', () => {
@@ -21,11 +22,20 @@ gulp.task('connect', () => {
 //js
 gulp.task('js', () => {
   return gulp.src('./js/*.js')
-    .pipe(babel({
-      presets: ['es2015']
-    }))
-    .pipe(gulp.dest('./app/js/'))
-    .pipe(connect.reload());
+  .pipe(babel({
+    presets: ['es2015']
+  }))
+  .on('error', function(e) {
+    const message = e.message || '';
+    const errName = e.name || '';
+    const codeFrame = e.codeFrame || '';
+    util.log(util.colors.red.bold('[JS babel error]')+' '+ util.colors.bgRed(errName));
+    util.log(util.colors.bold('message:') +' '+ message);
+    util.log(util.colors.bold('codeframe:') + '\n' + codeFrame);
+    this.emit('end');
+  })
+  .pipe(gulp.dest('./app/js/'))
+  .pipe(connect.reload());
 });
 
 //css
