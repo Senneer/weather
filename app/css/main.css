@@ -110,7 +110,7 @@ body {
   font-size: 18px;
 }
 .weather__nowDeg {
-  margin: .5em 0 0;
+  margin: 30px 0 0;
   font-size: 60px;
   text-align: center;
   letter-spacing: -5px;
@@ -147,7 +147,7 @@ body {
   border: none;
   box-shadow: 0 1px 0 0 #666666;
   outline: none;
-  transition: box-shadow .2s, padding .2s;
+  transition: box-shadow .2s,  padding .2s;
 }
 .weather__fullCity input:focus {
   padding-top: 15px;
@@ -209,15 +209,6 @@ body {
   width: 100%;
 }
 
-.loader,
-.loader::before,
-.loader::after {
-  width: 1em;
-  height: 4em;
-  background: currentColor;
-  animation: load 1s infinite ease-in-out;
-}
-
 .loader {
   position: relative;
   transform: translateZ(0);
@@ -226,20 +217,25 @@ body {
   color: #333333;
   animation-delay: -.16s;
 }
-
+.loader,
+.loader::before,
+.loader::after {
+  width: 1em;
+  height: 4em;
+  background: currentColor;
+  animation: load 1s infinite ease-in-out;
+}
 .loader::before,
 .loader::after {
   content: '';
   position: absolute;
   top: 0;
 }
-
-.loader:before {
+.loader::before {
   left: -1.5em;
   animation-delay: -.32s;
 }
-
-.loader:after {
+.loader::after {
   left: 1.5em;
 }
 

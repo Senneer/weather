@@ -1,6 +1,6 @@
 'use strict';
 
-var gulp = require('gulp'),
+const gulp = require('gulp'),
   postcss = require('gulp-postcss'),
   autoprefixer = require('autoprefixer'),
   connect = require('gulp-connect'),
@@ -10,7 +10,7 @@ var gulp = require('gulp'),
   babel = require('gulp-babel');
 
 //connect
-gulp.task('connect', function() {
+gulp.task('connect', () => {
   connect.server({
     root: './app/',
     livereload: true,
@@ -19,7 +19,7 @@ gulp.task('connect', function() {
 });
 
 //js
-gulp.task('js', function() {
+gulp.task('js', () => {
   return gulp.src('./js/*.js')
     .pipe(babel({
       presets: ['es2015']
@@ -29,8 +29,8 @@ gulp.task('js', function() {
 });
 
 //css
-gulp.task('css', function() {
-  var processors = [autoprefixer({browsers: ['last 3 version', 'ie 10', 'ie 11']}), flexbugs];
+gulp.task('css', () => {
+  const processors = [autoprefixer({browsers: ['last 3 version', 'ie 10', 'ie 11']}), flexbugs];
   return gulp.src('./scss/main.scss')
   .pipe(sass().on('error', sass.logError))
   .pipe(postcss(processors))
@@ -40,13 +40,13 @@ gulp.task('css', function() {
 });
 
 //html
-gulp.task('html', function(){
+gulp.task('html', () => {
   return gulp.src('./app/index.html')
   .pipe(connect.reload());
 });
 
 //watch
-gulp.task('watch', function(){
+gulp.task('watch', () => {
   gulp.watch('./js/*.js', ['js']);
   gulp.watch('./scss/*.scss', ['css']);
   gulp.watch('./app/index.html', ['html']);

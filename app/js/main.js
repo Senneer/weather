@@ -16,7 +16,7 @@ var selectors = {
   hourlyList: document.getElementsByClassName('weather__fullHours')[0]
 };
 
-Handlebars.registerHelper('convert', function (options) {
+Handlebars.registerHelper('round', function (options) {
   return Math.round(options.fn(this));
 });
 Handlebars.registerHelper('convertTime', function (options) {
@@ -43,9 +43,8 @@ function skycons() {
   });
   var list = ["clear-day", "clear-night", "partly-cloudy-day", "partly-cloudy-night", "cloudy", "rain", "sleet", "snow", "wind", "fog"];
 
-  for (var i = list.length; i--;) {
-    var weatherType = list[i],
-        elements = document.getElementsByClassName(weatherType);
+  list.map(function (weatherType) {
+    var elements = document.getElementsByClassName(weatherType);
     elements = Array.prototype.slice.call(elements);
 
     elements.forEach(function (el) {
@@ -54,7 +53,7 @@ function skycons() {
       (_el$classList = el.classList).remove.apply(_el$classList, list);
       icons.set(el, weatherType);
     });
-  }
+  });
   icons.play();
 }
 
@@ -98,10 +97,8 @@ document.addEventListener('DOMContentLoaded', function () {
   function weatherReport(latitude, longitude) {
     var apiKey = 'e881e391e95d9497880c0fc57e5078f0',
         url = 'https://api.darksky.net/forecast/',
-        lati = latitude,
-        longi = longitude,
         date = Math.round(new Date().getTime() / 1000),
-        api_call = url + apiKey + "/" + lati + "," + longi + "," + date + "?exclude=minutly,daily&units=ca";
+        api_call = url + apiKey + '/' + latitude + ',' + longitude + ',' + date + '?exclude=minutly,daily&units=ca';
 
     xhr.open('GET', api_call, true);
     xhr.send();

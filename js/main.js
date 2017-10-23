@@ -14,7 +14,7 @@ const selectors = {
   hourlyList: document.getElementsByClassName('weather__fullHours')[0]
 };
 
-Handlebars.registerHelper('convert', function(options) {
+Handlebars.registerHelper('round', function(options) {
   return Math.round(options.fn(this));
 });
 Handlebars.registerHelper('convertTime', function(options) {
@@ -52,16 +52,15 @@ function skycons() {
   "fog"
   ];
 
-  for (let i = list.length; i--;) {
-    var weatherType = list[i],
-    elements = document.getElementsByClassName(weatherType);
+  list.map((weatherType) => {
+    let elements = document.getElementsByClassName(weatherType);
     elements = Array.prototype.slice.call(elements);
 
-    elements.forEach(function(el) {
+    elements.forEach((el) => {
       el.classList.remove(...list);
       icons.set(el, weatherType);
     });
-  }
+  });
   icons.play();
 }
 
@@ -105,12 +104,10 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   function weatherReport(latitude, longitude) {
-    let apiKey       = 'e881e391e95d9497880c0fc57e5078f0',
-    url          = 'https://api.darksky.net/forecast/',
-    lati         = latitude,
-    longi        = longitude,
+    let apiKey = 'e881e391e95d9497880c0fc57e5078f0',
+    url = 'https://api.darksky.net/forecast/',
     date = Math.round(new Date().getTime()/1000),
-    api_call     = url + apiKey + "/" + lati + "," + longi + "," + date + "?exclude=minutly,daily&units=ca";
+    api_call = `${url + apiKey}/${latitude},${longitude},${date}?exclude=minutly,daily&units=ca`;
 
     xhr.open('GET', api_call, true);
     xhr.send();
@@ -138,7 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
     weatherReport(latitude, longitude);
   });
 
-  selectors.form.addEventListener('submit', (e) => {
+  selectors.form.addEventListener('submit', e => {
     e.preventDefault();
   });
 });

@@ -45,10 +45,10 @@
   <script src="./js/handlebars.js"></script>
   <script id="hourCard" type="text/x-handlebars-template">
     <li class="weather__fullHoursItem">
-      <p class="weather__fullHoursItemText _time">{{#convertTime}}{{time}}{{/convertTime}} / <b>{{#convert}}{{temperature}}{{/convert}}°C</b></p>
-      <p class="weather__fullHoursItemText _wind">wind: {{#convert}}{{windSpeed}}{{/convert}}km/h</p>
+      <p class="weather__fullHoursItemText _time">{{#convertTime}}{{time}}{{/convertTime}} / <b>{{#round}}{{temperature}}{{/round}}°C</b></p>
+      <p class="weather__fullHoursItemText _wind">wind: {{#round}}{{windSpeed}}{{/round}}km/h</p>
       <canvas class="weather__fullHoursItemType weatherType {{icon}}"></canvas>
-      <p class="weather__fullHoursItemText _dew">dew: {{#convert}}{{dewPoint}}{{/convert}}°C</p>
+      <p class="weather__fullHoursItemText _dew">dew: {{#round}}{{dewPoint}}{{/round}}°C</p>
     </li>
   </script>
   <script src="./js/main.js"></script>
